@@ -20,8 +20,11 @@ const slides = [
 var img = document.createElement('img');
 let stock = 0;
 
+/*-- Content loaded _ initialisation ---*/
+
 document.addEventListener("DOMContentLoaded", function () {
 	const banner = document.getElementById("banner");
+
 	img.classList.add("index");
 	img.src = "./assets/images/slideshow/" + slides[stock].image;
 	console.log(slides[stock].image);
@@ -31,8 +34,12 @@ document.addEventListener("DOMContentLoaded", function () {
 	addTagline();
 });
 
+/*-- initDot _ initialisation des bullet points ---*/
+
+
 function initDot() {
 	const containerDiv = document.getElementById('dots');
+
 	slides.forEach((s, idx) => {
 		let dot = document.createElement('DIV');
 		dot.classList.add('dot');
@@ -43,19 +50,21 @@ function initDot() {
 	});
 }
 
+/*-- addTagline _ change la tagline ---*/
+
+
 function addTagline() {
-	var tagline_1 = document.getElementById('tagline');
-	tagline_1.innerHTML = slides[stock].tagLine;
-	
+	document.getElementById('tagline').innerHTML = slides[stock].tagLine;
 }
+
+/*-- activeDot _ Change le bullet point en valeur ---*/
 
 function activeDot(x) {
-	let currentElem = document.querySelector('[idx="' + stock + '"]');
-	let presElement = document.querySelector('[idx="' + (x == 0 ? (stock == 0 ? (slides.length - 1) : stock - 1) : (stock == slides.length - 1 ? 0 : stock + 1)) + '"]');
-
-	currentElem.classList.add('dot_selected');
-	presElement.classList.remove('dot_selected');
+	document.querySelector('[idx="' + stock + '"]').classList.add('dot_selected');
+	document.querySelector('[idx="' + (x == 0 ? (stock == 0 ? (slides.length - 1) : stock - 1) : (stock == slides.length - 1 ? 0 : stock + 1)) + '"]').classList.remove('dot_selected');
 }
+
+/*-- scrollLeft | scrollRight _ Change l'image du caroussel au clique ---*/
 
 function scrollLeft() {
 	stock--;
