@@ -256,19 +256,6 @@ header {
 	background-color: #fff;
 }
 
-.box_left {
-	padding: 60px 10px 20px 35px;
-	left: 10px;
-	position: absolute;
-}
-
-.box_right {
-	padding: 60px 10px 20px 35px;
-	right: 10px;
-	position: absolute;
-	background-color: #28363d7c;
-}
-
 /* Fin du code CSS pour le carousel */
 #banner p {
 	font-family: 'Roboto Slab', sans-serif;
