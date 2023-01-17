@@ -17,17 +17,17 @@ const slides = [
 	}
 ]
 
-var img = document.createElement('img');
-let stock = 0;
-
 /*-- Content loaded _ initialisation ---*/
 
 document.addEventListener("DOMContentLoaded", function () {
 	const banner = document.getElementById("banner");
+	let img = document.createElement('img');
 
 	img.classList.add("index");
-	img.src = "./assets/images/slideshow/" + slides[stock].image;
-	console.log(slides[stock].image);
+	img.src = "./assets/images/slideshow/" + slides[0].image;
+	img.setAttribute('actual', 0)
+	img.setAttribute('id', 'img_banner');
+	console.log(slides[0].image);
 	banner.appendChild(img);
 	banner.setAttribute('current', 0);
 	initDot();
@@ -35,7 +35,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 /*-- initDot _ initialisation des bullet points ---*/
-
 
 function initDot() {
 	const containerDiv = document.getElementById('dots');
@@ -59,30 +58,38 @@ function addTagline() {
 
 /*-- activeDot _ Change le bullet point en valeur ---*/
 
-function activeDot(x) {
+function activeDot(scrollSens, stock) {
 	document.querySelector('[idx="' + stock + '"]').classList.add('dot_selected');
-	document.querySelector('[idx="' + (x == 0 ? (stock == 0 ? (slides.length - 1) : stock - 1) : (stock == slides.length - 1 ? 0 : stock + 1)) + '"]').classList.remove('dot_selected');
+	document.querySelector('[idx="' + (scrollSens == 0 ? (stock == 0 ? (slides.length - 1) : stock - 1) : (stock == slides.length - 1 ? 0 : stock + 1)) + '"]').classList.remove('dot_selected');
 }
 
 /*-- scrollLeft | scrollRight _ Change l'image du caroussel au clique ---*/
 
-function scrollLeft() {
+document.getElementById("left_arrow").addEventListener("click", function () {
+	let img_banner = document.getElementById('img_banner');
+	let stock = img_banner.getAttribute('actual');
+
 	stock--;
-	if (stock == -1)
+	if (stock == -1) {
 		stock = slides.length - 1;
-	img.src = "./assets/images/slideshow/" + slides[stock].image;
-	activeDot(1);
+	}
+	img_banner.src = "./assets/images/slideshow/" + slides[stock].image;
+	img_banner.setAttribute('actual', stock)
+	activeDot(1, stock);
 	addTagline();
-}
+});
 
-function scrollRight() {
+
+document.getElementById("right_arrow").addEventListener("click", function () {
+	let img_banner = document.getElementById('img_banner');
+	let stock = img_banner.getAttribute('actual');
+
 	stock++;
-	if (stock == (slides.length))
+	if (stock == (slides.length)) {
 		stock = 0;
-	img.src = "./assets/images/slideshow/" + slides[stock].image;
-	activeDot(0);
+	}
+	img_banner.src = "./assets/images/slideshow/" + slides[stock].image;
+	img_banner.setAttribute('actual', stock)
+	activeDot(0, stock);
 	addTagline();
-}
-
-document.getElementById("left_arrow").addEventListener("click", scrollLeft);
-document.getElementById("right_arrow").addEventListener("click", scrollRight);
+});
